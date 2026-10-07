@@ -98,3 +98,14 @@ export function loginUser(req, res) {
         });
 }
 
+
+export function deleteUser(req,res){
+     const email = req.body.Email;
+    User.deleteOne({Email : email}).then(()=>{
+        res.json({
+            message : "Deleted User"
+        })
+    })
+
+}
+
