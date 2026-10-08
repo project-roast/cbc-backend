@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 
 
 
+
 const app = express();
 
 const mongoUrl = "mongodb+srv://isankalakshan17444_db_user:woAkfpgHFAAjPEex@cluster0.iy6wloh.mongodb.net/?appName=Cluster0";

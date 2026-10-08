@@ -1,17 +1,26 @@
 import Products from "../models/products.js";
 
 export async function getProducts(req, res) {
+    try {
+        const productList = await Products.find();
 
-    const productList = await Products.find()
+        console.log(productList);
 
-    res.json({
-        list : productList
-    })
+        res.status(200).json({
+            list: productList
+        });
 
-   
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Failed to get products",
+            error: error.message
+        });
+    }
 }
 
-export function createProducts(req, res) {
+export async function createProducts(req, res) {
 
     console.log(req.user);
 
@@ -31,53 +40,50 @@ export function createProducts(req, res) {
 
     const product = new Products(req.body);
 
-    product.save()
-        .then(() => {
+    try {
+        await product.save();
 
-            console.log("Product created");
-
-            res.json({
-                message: "Product created successfully"
-            });
-
-        })
-        .catch((error) => {
-
-            console.log(error);
-
-            res.status(500).json({
-                message: "Product not created"
-            });
-
+        res.json({
+            message: "Product created successfully"
         });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message: "Product not created"
+        });
+    }
 }
 
-export function deleteProducts(req, res) {
+export async function deleteProducts(req, res) {
 
-    Products.deleteOne({
-        productName: req.params.productName
-    })
-        .then(() => {
+    try {
 
-            res.json({
-                message: "Product deleted successfully"
-            });
-
-        })
-        .catch((error) => {
-
-            console.log(error);
-
-            res.status(500).json({
-                message: "Product deletion failed"
-            });
-
+        await Products.deleteOne({
+            productName: req.params.productName
         });
+
+        res.json({
+            message: "Product deleted successfully"
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message: "Product deletion failed"
+        });
+    }
 }
 
-export function getProductByName(req, res){
+export function getProductByName(req, res) {
+
     const name = req.params.name;
+
     res.json({
-        message : "Product name is "+ name
+        message: "Product name is " + name
     });
 }

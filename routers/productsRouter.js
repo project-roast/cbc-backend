@@ -10,7 +10,9 @@ import {
 const productRouter = express.Router();
 
 productRouter.get("/", getProducts);
-productRouter.get("/:name ", getProductByName);
+
+productRouter.get("/:name", getProductByName);
+
 productRouter.post("/", createProducts);
 
 productRouter.delete("/:productName", deleteProducts);
