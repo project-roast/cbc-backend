@@ -12,6 +12,21 @@ export function createUser(req, res) {
 
     const userData = req.body;
 
+    if(userData.type == "admin"){
+        if(req.User == null ){
+            res.json({
+                message : "Please login as adiministration"
+            })
+            return
+        }
+
+        if(req.user.type != "admin"){
+            res.json({
+                message : "Please login as administration"
+            })
+        }
+    }
+
     userData.password = bcrypt.hashSync(userData.password, 10);
 
     const newUser = new User({
