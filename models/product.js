@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { required } from "nodemon/lib/config";
+
 
 const productSchema = new mongoose.Schema({
 
@@ -37,10 +37,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
-    stock :{
-        type : Number,
-        required : true
-    },
+    
 
     description: {
         type: String,
